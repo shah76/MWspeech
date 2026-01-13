@@ -29,8 +29,7 @@ public actor SpeechRecognizer: Observable {
     }
     
     private var viewModel: StreamSessionViewModel
-    private var lastTranscription: String = ""
-    
+        
     private var audioEngine: AVAudioEngine?
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
@@ -96,7 +95,6 @@ public actor SpeechRecognizer: Observable {
             let (audioEngine, request) = try Self.prepareEngine()
             self.audioEngine = audioEngine
             self.request = request
-            self.lastTranscription = ""
             self.task = recognizer.recognitionTask(with: request, resultHandler: { [weak self] result, error in
                 self?.recognitionHandler(audioEngine: audioEngine, result: result, error: error)
             })
@@ -113,7 +111,6 @@ public actor SpeechRecognizer: Observable {
         audioEngine = nil
         request = nil
         task = nil
-        self.lastTranscription = ""
     }
     
     private static func prepareEngine() throws -> (AVAudioEngine, SFSpeechAudioBufferRecognitionRequest) {

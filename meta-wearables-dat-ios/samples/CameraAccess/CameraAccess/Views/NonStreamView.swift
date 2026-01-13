@@ -72,7 +72,7 @@ struct NonStreamView: View {
             .multilineTextAlignment(.center)
             .foregroundColor(.white)
             
-          Text("The stream view will display speech recognotion results as you use the Glasses microphone. Do not forget to set Microphone and Speech recognition usage in the info.plist file.")
+          Text("The stream view will display speech recognition results as you use the Glasses microphone. Do not forget to set Microphone and Speech recognition usage in the info.plist file.")
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)
