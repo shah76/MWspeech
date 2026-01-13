@@ -16,11 +16,22 @@
 import MWDATCore
 import SwiftUI
 
+import AVFoundation
+
 struct NonStreamView: View {
   @ObservedObject var viewModel: StreamSessionViewModel
   @ObservedObject var wearablesVM: WearablesViewModel
   @State private var sheetHeight: CGFloat = 300
 
+    let synthesizer = AVSpeechSynthesizer()
+    func speakText(_ text: String, languageCode: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.volume = 1.0
+        // Optionally configure parameters like voice and rate
+        utterance.voice = AVSpeechSynthesisVoice(language: languageCode)
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate // Use default rate for natural speed
+        synthesizer.speak(utterance)
+    }
   var body: some View {
     ZStack {
       Color.black.edgesIgnoringSafeArea(.all)
@@ -60,6 +71,14 @@ struct NonStreamView: View {
             .font(.system(size: 15))
             .multilineTextAlignment(.center)
             .foregroundColor(.white)
+            
+          Text("The stream view will display speech recognotion results as you use the Glasses microphone. Do not forget to set Microphone and Speech recognition usage in the info.plist file.")
+                .font(.system(size: 15))
+                .multilineTextAlignment(.center)
+                .foregroundColor(.white)
+            Button("Test Speakers") {
+                speakText("Hello from Meta Glasses. Do visit the great city of Las Vegas", languageCode: "en-US")
+            }
         }
         .padding(.horizontal, 12)
 
